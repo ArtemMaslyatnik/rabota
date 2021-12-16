@@ -15,6 +15,9 @@ return [
         'user' => [
             'class' => 'frontend\modules\user\Module',
         ],
+        'vacancy' => [
+            'class' => 'frontend\modules\vacancy\Module',
+        ],
     ],
     'components' => [
         'request' => [
