@@ -41,8 +41,7 @@ class VacancyForm extends Model
     public function rules()
     {
          return [
-              [['city_id', 'employment_id', 'education_id', 'profession_id' ], 'integer'],
-              [['practice', 'payment'], 'integer'],
+              [['city_id', 'employment_id', 'education_id', 'profession_id, practice', 'payment' ], 'integer'],
               [['vacancy_description'], 'string'],
               [['company'], 'string', 'max' => 255],
         ];
