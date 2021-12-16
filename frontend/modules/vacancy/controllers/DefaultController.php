@@ -31,10 +31,6 @@ class DefaultController extends Controller
         
         if ($model->load(Yii::$app->request->post())) {
             
-            //
-            //$model->picture = UploadedFile::getInstance($model, 'picture');
-            //
-            
             if ($model->save()) {
                 
                 Yii::$app->session->setFlash('success', 'Vacancy created!');

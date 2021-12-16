@@ -23,6 +23,7 @@ class VacancyForm extends Model
    // public $picture;
    // public $description;
     
+    public $category_id;
     public $company;
     public $profession_id;
     public $city_id;
@@ -41,9 +42,10 @@ class VacancyForm extends Model
     public function rules()
     {
          return [
-              [['city_id', 'employment_id', 'education_id', 'profession_id, practice', 'payment' ], 'integer'],
+              [['category_id', 'city_id', 'employment_id', 'education_id', 'profession_id', 'practice', 'payment' ], 'integer'],
               [['vacancy_description'], 'string'],
               [['company'], 'string', 'max' => 255],
+              [['category_id', 'city_id', 'employment_id', 'education_id', 'profession_id', 'practice', 'payment', 'vacancy_description', 'company' ], 'required'], 
         ];
     }
     
@@ -75,15 +77,10 @@ class VacancyForm extends Model
             $vacancy->employment_id = $this->employment_id;
             $vacancy->practice = $this->practice;
             $vacancy->profession_id = $this->profession_id;
-            $vacancy->save();      
-          //  if ($post->save(false)) {
-          //      $event = new PostCreatedEvent();
-          //      $event->user = $this->user;
-//                $event->post = $post;
-//                $this->trigger(self::EVENT_POST_CREATED, $event);
-//                return true;
-        //    }
-         }
+            $vacancy->category_id = $this->category_id;
+            $vacancy->save();  
+            return true;
+          }
         return false;
 
     }
@@ -110,6 +107,11 @@ class VacancyForm extends Model
         return ArrayHelper::map($result, 'id', 'name');
     }
     
+    public function getСategoryList() {
+        $sql = "SELECT * FROM category";
+        $result = Yii::$app->db->createCommand($sql)->queryAll();
+        return ArrayHelper::map($result, 'id', 'name');
+    }    
     
     
 }

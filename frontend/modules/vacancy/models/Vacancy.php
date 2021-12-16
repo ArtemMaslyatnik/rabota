@@ -50,6 +50,7 @@ class Vacancy extends \yii\db\ActiveRecord
             'payment' => 'Payment',
             'vacancy_description' => 'Vacancy Description',
             'vacancy_created_at' => 'Vacancy Created At',
+            'category_id' => 'Сategory ID',
         ];
     }
     

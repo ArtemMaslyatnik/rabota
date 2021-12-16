@@ -16,7 +16,13 @@ use kartik\select2\Select2;
     <h1>Create vacancy</h1>
 
     <?php $form = ActiveForm::begin(); ?>
-    
+             <?php echo $form->field($model, 'category_id')->widget(Select2::classname(), [
+                'data' => $model->getСategoryList(),
+                'language' => 'en',
+                'options' => ['placeholder' => 'Select a Сategory ...'],
+                'pluginOptions' => [
+                    'allowClear' => true
+                    ],])->label('Сategory');?>
         <?php echo $form->field($model, 'profession_id')->widget(Select2::classname(), [
                 'data' => $model->getProfessionList(),
                 'language' => 'en',
