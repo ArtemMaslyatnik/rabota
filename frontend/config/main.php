@@ -18,6 +18,9 @@ return [
         'vacancy' => [
             'class' => 'frontend\modules\vacancy\Module',
         ],
+        'category' => [
+            'class' => 'frontend\modules\category\Module',
+        ],
     ],
     'components' => [
         'request' => [

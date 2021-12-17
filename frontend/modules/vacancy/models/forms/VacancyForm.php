@@ -9,7 +9,7 @@ use frontend\models\User;
 use frontend\modules\vacancy\models\Vacancy;
 use yii\helpers\ArrayHelper;
 use app\models\Profession;
-
+use frontend\models\Category;
 
 
 
@@ -68,7 +68,6 @@ class VacancyForm extends Model
             $vacancy = new Vacancy();
             $vacancy->vacancy_description = $this->vacancy_description;
             $vacancy->vacancy_created_at = time();
-           // $post->filename = Yii::$app->storage->saveUploadedFile($this->picture);
             $vacancy->user_id = $this->user->getId();
             $vacancy->city_id = $this->city_id;
             $vacancy->company = $this->company;
@@ -108,10 +107,10 @@ class VacancyForm extends Model
     }
     
     public function getСategoryList() {
-        $sql = "SELECT * FROM category";
-        $result = Yii::$app->db->createCommand($sql)->queryAll();
-        return ArrayHelper::map($result, 'id', 'name');
-    }    
+
+        return ArrayHelper::map(Category::getСategory(), 'id', 'name');
+
+        }    
     
     
 }
