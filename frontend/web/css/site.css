@@ -88,3 +88,10 @@ a.desc:after {
 .nav > li > form > button.logout:focus {
     outline: none;
 }
+
+.vacancy-list-vacancy {
+    border-width: thin;
+    border-color: rgb(190,190,190);
+    border-style: solid;
+    padding: 20px;
+}

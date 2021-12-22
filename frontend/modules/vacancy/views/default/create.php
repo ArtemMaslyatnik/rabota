@@ -4,8 +4,6 @@
 
 use yii\widgets\ActiveForm;
 use yii\helpers\Html;
-use yii\jui\AutoComplete;
-use yii\web\JsExpression;
 use kartik\select2\Select2;
 
 

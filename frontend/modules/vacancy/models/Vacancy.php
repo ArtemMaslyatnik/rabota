@@ -4,8 +4,9 @@ namespace frontend\modules\vacancy\models;
 
 
 use Yii;
-
-
+use frontend\models\Profession;
+use frontend\models\City;
+use frontend\models\Employment;
 /**
  * This is the model class for table "vacancy".
  *
@@ -54,5 +55,31 @@ class Vacancy extends \yii\db\ActiveRecord
         ];
     }
     
+     /**
+     * Get profession of the vacancy
+     * @return Profession|null
+     */
+    public function getProfession()
+    {
+        return $this->hasOne(Profession::className(), ['id' => 'profession_id']);
+    }
+    
+    /**
+     * Get city of the vacancy
+     * @return City|null
+     */
+    public function getCity()
+    {
+        return $this->hasOne(City::className(), ['id' => 'city_id']);
+    }
+    
+             /**
+     * Get employment of the vacancy
+     * @return Employment|null
+     */
+    public function getEmployment()
+    {
+        return $this->hasOne(Employment::className(), ['id' => 'employment_id']);
+    }
 
 }

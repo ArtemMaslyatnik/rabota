@@ -110,7 +110,7 @@ class VacancyForm extends Model
 
         return ArrayHelper::map(Category::getСategory(), 'id', 'name');
 
-        }    
+    }    
     
     
 }
