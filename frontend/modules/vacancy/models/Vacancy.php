@@ -1,6 +1,7 @@
 <?php
 
 namespace frontend\modules\vacancy\models;
+use app\models\Profession;
 
 
 use Yii;
@@ -53,5 +54,26 @@ class Vacancy extends \yii\db\ActiveRecord
         ];
     }
     
+     /**
+     * Get author of the post
+     * @return User|null
+     */
+  
+    public function getCity() 
+    {
+        return $this->hasOne(City::className(), ['id' => 'user_id']);
+    }
+    
+    /**
+     * Get author of the post
+     * @return User|null
+    */
+    public function getProfession() 
+    {
+        return $this->hasOne(Profession::className(), ['id' => 'profession_id']);
+    }
+    
+
+
 
 }

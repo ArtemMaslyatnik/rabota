@@ -41,7 +41,7 @@ class VacancyForm extends Model
     public function rules()
     {
          return [
-              [['city_id', 'employment_id', 'education_id', 'profession_id, practice', 'payment' ], 'integer'],
+              [['city_id', 'employment_id', 'education_id', 'profession_id', 'practice', 'payment' ], 'integer'],
               [['vacancy_description'], 'string'],
               [['company'], 'string', 'max' => 255],
         ];
@@ -81,7 +81,7 @@ class VacancyForm extends Model
           //      $event->user = $this->user;
 //                $event->post = $post;
 //                $this->trigger(self::EVENT_POST_CREATED, $event);
-//                return true;
+                return true;
         //    }
          }
         return false;
