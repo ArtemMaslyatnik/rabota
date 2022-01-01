@@ -8,7 +8,7 @@ use yii\base\Model;
 use frontend\models\User;
 use frontend\modules\vacancy\models\Vacancy;
 use yii\helpers\ArrayHelper;
-use app\models\Profession;
+use frontend\models\Profession;
 use frontend\models\Category;
 
 
@@ -80,6 +80,7 @@ class VacancyForm extends Model
             $vacancy->save();  
             return true;
           }
+
         return false;
 
     }
@@ -108,7 +109,7 @@ class VacancyForm extends Model
     
     public function getСategoryList() {
 
-        return ArrayHelper::map(Category::getСategory(), 'id', 'name');
+        return ArrayHelper::map(Category::find()->all(), 'id', 'name');
 
     }    
     

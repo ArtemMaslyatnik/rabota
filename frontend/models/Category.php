@@ -32,9 +32,5 @@ class Category extends \yii\db\ActiveRecord
         ];
     }
     
-    public static function getСategory() {
-        $sql = "SELECT * FROM category";
-        return Yii::$app->db->createCommand($sql)->queryAll();
 
-    }  
 }

@@ -36,7 +36,7 @@ use kartik\select2\Select2;
                 'pluginOptions' => [
                     'allowClear' => true
                     ],])->label('City');?>
-        <?php echo $form->field($model, 'employment_id')->dropDownList($model->getEmploymentList())->label('Employment');; ?>
+        <?php echo $form->field($model, 'employment_id')->dropDownList($model->getEmploymentList())->label('Employment'); ?>
         <?php echo $form->field($model, 'practice'); ?>
         <?php echo $form->field($model, 'education_id')->dropDownList($model->getEducationList())->label('Education'); ?>
         <?php echo $form->field($model, 'vacancy_description')->textarea(['rows' => '20'])->label('Description'); ?>

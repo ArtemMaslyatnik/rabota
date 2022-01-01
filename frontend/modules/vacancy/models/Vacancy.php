@@ -2,7 +2,6 @@
 
 namespace frontend\modules\vacancy\models;
 
-
 use Yii;
 use frontend\models\Profession;
 use frontend\models\City;
@@ -81,5 +80,4 @@ class Vacancy extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Employment::className(), ['id' => 'employment_id']);
     }
-
 }
