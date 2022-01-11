@@ -14,38 +14,56 @@ use yii\widgets\DetailView;
 <div class="vacancy-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
-
-    <?= DetailView::widget([
+    <?=
+    DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'user_id',
-               [
-                   'label' => 'Profession',
-                   'value' => $model->profession->name,
-               ],
+            [
+                'label' => 'Profession',
+                'value' => $model->profession->name,
+            ],
             'company',
-                [
-                   'label' => 'City',
-                   'value' => $model->city->name,
-               ],
-            'employment_id',
-            'education_id',
+            [
+                'label' => 'City',
+                'value' => $model->city->name,
+            ],
+            [
+                'label' => 'Employment',
+                'value' => $model->employment->name,
+            ],
+            [
+                'label' => 'Education',
+                'value' => $model->education->name,
+            ],
             'practice',
             'payment',
             'vacancy_description',
-            'vacancy_created_at:datetime',
+            'vacancy_created_at:date',
         ],
-    ]) ?>
+    ])
+    ?>
+<?php if (isset($currentUser->id) and $currentUser->id == $model->user_id): ?>
+
+        <p>
+
+            <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+            <?=
+            Html::a('Delete', ['delete', 'id' => $model->id], [
+                'class' => 'btn btn-danger',
+                'data' => [
+                    'confirm' => 'Are you sure you want to delete this item?',
+                    'method' => 'post',
+                ],
+            ])
+            ?>
+
+        </p>
+        <?php else: ?>
+        <p>
+
+            <?= Html::a('respond', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+
+        </p>
+<?php endif ?>
 
 </div>

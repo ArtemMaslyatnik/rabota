@@ -1,6 +1,7 @@
 <?php
 use yii\helpers\Html;
 use yii\helpers\HtmlPurifier;
+use yii\helpers\Url;
 ?>
 
 <div class="vacancy"  >
@@ -12,7 +13,7 @@ use yii\helpers\HtmlPurifier;
         
         <blockquote class="blockquote">
           <p>
-             <?= HtmlPurifier::process($model->company)?>  
+             <?= HtmlPurifier::process($model->company)?>, 
              <?= HtmlPurifier::process($model->city->name)?>
           </p>
         </blockquote>
@@ -25,7 +26,7 @@ use yii\helpers\HtmlPurifier;
         <p>
             <?= mb_strimwidth(HtmlPurifier::process($model->vacancy_description), 0, 150, Html::a('. . .>', ['view', 'id' => $model->id])) ?>
         </p>
-        <p class="blog-post-meta"><?= HtmlPurifier::process(Yii::$app->formatter->asDatetime($model->vacancy_created_at)) ?> </p>
+        <p class="blog-post-meta"><?= HtmlPurifier::process(Yii::$app->formatter->asDate($model->vacancy_created_at)) ?> </p>
       </article>
 
 </div>

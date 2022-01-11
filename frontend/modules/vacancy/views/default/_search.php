@@ -11,39 +11,47 @@ use kartik\select2\Select2;
 
 <div class="vacancy-search">
 
-    <?php $form = ActiveForm::begin([
-        'action' => ['index'],
-        'method' => 'get',
-        'options' => [
-            'data-pjax' => 1
-        ],
-    ]); ?>
+    <?php
+    $form = ActiveForm::begin([
+                'action' => ['index'],
+                'method' => 'get',
+                'options' => [
+                    'data-pjax' => 1
+                ],
+    ]);
+    ?>
 
-
-    <?= $form->field($model, 'profession_id')->widget(Select2::classname(), [
+    <div class="row">
+        <div class="col-md-5">
+            <?=
+            $form->field($model, 'profession_id')->widget(Select2::classname(), [
                 'data' => $model->getProfessionList(),
                 'language' => 'en',
                 'options' => ['placeholder' => 'Select a Profession ...'],
                 'pluginOptions' => [
                     'allowClear' => true
-                    ],])->label('Profession');?>
-
-   <?= $form->field($model, 'city_id')->widget(Select2::classname(), [
+                ],])->label(false);
+            ?>
+        </div>
+        <div class="col-md-5">
+            <?=
+            $form->field($model, 'city_id')->widget(Select2::classname(), [
                 'data' => $model->getCityList(),
                 'language' => 'en',
                 'options' => ['placeholder' => 'Select a City ...'],
                 'pluginOptions' => [
                     'allowClear' => true
-                    ],])->label('City');?>
+                ],])->label(false);
+            ?>
+        </div>
+        <?php // echo $form->field($model, 'employment_id')->dropDownList($model->getEmploymentList(), ['prompt' => 'Select a Employment ...'])->label('Employment');  ?>
 
-    <?php // echo $form->field($model, 'employment_id')->dropDownList($model->getEmploymentList(), ['prompt' => 'Select a Employment ...'])->label('Employment'); ?>
+        <div class="col-md-2">
+                <?= Html::submitButton('Search', ['class' => 'btn btn-primary ']) ?>
+                <?php // Html::resetButton('Reset', ['class' => 'btn btn-outline-secondary']) ?>
 
-
-    <div class="form-group">
-        <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton('Reset', ['class' => 'btn btn-outline-secondary']) ?>
+        </div>
     </div>
-
     <?php ActiveForm::end(); ?>
 
 </div>

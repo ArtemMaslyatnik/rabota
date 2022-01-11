@@ -6,6 +6,7 @@ use Yii;
 use frontend\models\Profession;
 use frontend\models\City;
 use frontend\models\Employment;
+use frontend\models\Education;
 /**
  * This is the model class for table "vacancy".
  *
@@ -79,5 +80,15 @@ class Vacancy extends \yii\db\ActiveRecord
     public function getEmployment()
     {
         return $this->hasOne(Employment::className(), ['id' => 'employment_id']);
+    }
+    
+    
+             /**
+     * Get education of the vacancy
+     * @return Education|null
+     */
+    public function getEducation()
+    {
+        return $this->hasOne(Education::className(), ['id' => 'education_id']);
     }
 }

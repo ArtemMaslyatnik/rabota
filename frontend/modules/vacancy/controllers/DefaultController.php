@@ -68,33 +68,15 @@ class DefaultController extends Controller
      */
     public function actionView($id)
     {
+         /* @var $currentUser User */
+        $currentUser = Yii::$app->user->identity;
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'currentUser' => $currentUser,
         ]);
     }
 
-//    /**
-//     * Creates a new Vacancy model.
-//     * If creation is successful, the browser will be redirected to the 'view' page.
-//     * @return mixed
-//     */
-//    public function actionCreate()
-//    {
-//        $model = new Vacancy();
-//
-//        if ($this->request->isPost) {
-//            if ($model->load($this->request->post()) && $model->save()) {
-//                return $this->redirect(['view', 'id' => $model->id]);
-//            }
-//        } else {
-//            $model->loadDefaultValues();
-//        }
-//
-//        return $this->render('create', [
-//            'model' => $model,
-//        ]);
-//    }
-    
+ 
     public function actionCreate()
     {
         if (Yii::$app->user->isGuest) {
@@ -166,6 +148,28 @@ class DefaultController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+    
+    public function actionListVacancyByCategory($id)
+    {
+        $searchModel = new VacancySearch();
+        $dataProvider = $searchModel->search($this->request->queryParams, $id);
+
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+    
+        public function actionListVacancyByCity($id)
+    {
+        $searchModel = new VacancySearch();
+        $dataProvider = $searchModel->search($this->request->queryParams, null ,$id);
+
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
     }
     
 
