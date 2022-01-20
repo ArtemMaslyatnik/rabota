@@ -61,7 +61,7 @@ use yii\widgets\DetailView;
         <?php else: ?>
         <p>
 
-            <?= Html::a('respond', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+            <?= Html::a('Respond', ['respond', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
 
         </p>
 <?php endif ?>

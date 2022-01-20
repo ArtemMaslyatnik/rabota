@@ -12,7 +12,7 @@ use frontend\modules\user\models\LoginForm;
 use frontend\modules\user\models\PasswordResetRequestForm;
 use frontend\modules\user\models\ResetPasswordForm;
 use frontend\modules\user\models\SignupForm;
-
+use frontend\modules\user\models\VerifyEmailForm;
 /**
  * Default controller for the `user` module
  */
@@ -105,12 +105,16 @@ class DefaultController extends Controller
     public function actionSignup()
     {
         $model = new SignupForm();
-        if ($model->load(Yii::$app->request->post())) {
-            if ($user = $model->signup()) {
-                if (Yii::$app->getUser()->login($user)) {
-                    return $this->goHome();
-                }
-            }
+       // if ($model->load(Yii::$app->request->post())) {
+       //     if ($user = $model->signup()) {
+       //         if (Yii::$app->getUser()->login($user)) {
+       //             return $this->goHome();
+       //         }
+       //     }
+       // }
+         if ($model->load(Yii::$app->request->post()) && $model->signup()) {
+            Yii::$app->session->setFlash('success', 'Thank you for registration. Please check your inbox for verification email.');
+            return $this->goHome();
         }
 
         return $this->render('signup', [
