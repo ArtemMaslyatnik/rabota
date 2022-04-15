@@ -41,6 +41,7 @@ use kartik\select2\Select2;
         <?php echo $form->field($model, 'education_id')->dropDownList($model->getEducationList())->label('Education'); ?>
         <?php echo $form->field($model, 'vacancy_description')->textarea(['rows' => '20'])->label('Description'); ?>
         <?php echo $form->field($model, 'payment'); ?>
+        <?php echo $form->field($model, 'email'); ?>
         
         <?php echo Html::submitButton('Create'); ?>
     

@@ -21,6 +21,9 @@ return [
         'category' => [
             'class' => 'frontend\modules\category\Module',
         ],
+        'respond' => [
+            'class' => 'frontend\modules\respond\Module',
+        ],
     ],
     'components' => [
         'request' => [

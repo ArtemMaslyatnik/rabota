@@ -7,6 +7,9 @@ use frontend\models\Profession;
 use frontend\models\City;
 use frontend\models\Employment;
 use frontend\models\Education;
+use yii\helpers\ArrayHelper;
+use frontend\models\Category;
+
 /**
  * This is the model class for table "vacancy".
  *
@@ -52,6 +55,7 @@ class Vacancy extends \yii\db\ActiveRecord
             'vacancy_description' => 'Vacancy Description',
             'vacancy_created_at' => 'Vacancy Created At',
             'category_id' => 'Сategory ID',
+            'email' => 'Email',
         ];
     }
     
@@ -83,12 +87,46 @@ class Vacancy extends \yii\db\ActiveRecord
     }
     
     
-             /**
+     /**
      * Get education of the vacancy
      * @return Education|null
      */
     public function getEducation()
     {
         return $this->hasOne(Education::className(), ['id' => 'education_id']);
+    }
+    
+    public function getCategory()
+    {
+        return $this->hasOne(Category::className(), ['id' => 'category_id']);
+    }
+    
+    
+    public function getСategoryList() {
+
+        return ArrayHelper::map(Category::find()->all(), 'id', 'name');
+
+    } 
+    
+    public static function getProfessionList() {
+        return ArrayHelper::map(Profession::find()->all(), 'id', 'name');
+    }
+    
+    public function getCityList() {
+        $sql = "SELECT * FROM city";
+        $result = Yii::$app->db->createCommand($sql)->queryAll();
+        return ArrayHelper::map($result, 'id', 'name');
+    }
+    
+    public function getEmploymentList() {
+        $sql = "SELECT * FROM employment";
+        $result = Yii::$app->db->createCommand($sql)->queryAll();
+        return ArrayHelper::map($result, 'id', 'name');
+    }
+    
+    public function getEducationList() {
+        $sql = "SELECT * FROM education";
+        $result = Yii::$app->db->createCommand($sql)->queryAll();
+        return ArrayHelper::map($result, 'id', 'name');
     }
 }

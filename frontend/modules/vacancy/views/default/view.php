@@ -62,7 +62,7 @@ use yii\widgets\DetailView;
         <p>
 
             <?= Html::a('Respond', ['respond', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-
+            <a href="<?php echo \yii\helpers\Url::to(['/respond/default/view' , 'id' => $model->id]); ?>">Vacancies by category</a>
         </p>
 <?php endif ?>
 

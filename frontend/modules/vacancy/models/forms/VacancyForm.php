@@ -32,6 +32,7 @@ class VacancyForm extends Model
     public $education_id;
     public $vacancy_description;
     public $payment;
+    public $email;
     
  
     private $user;
@@ -45,19 +46,18 @@ class VacancyForm extends Model
               [['category_id', 'city_id', 'employment_id', 'education_id', 'profession_id', 'practice', 'payment' ], 'integer'],
               [['vacancy_description'], 'string'],
               [['company'], 'string', 'max' => 255],
-              [['category_id', 'city_id', 'employment_id', 'education_id', 'profession_id', 'practice', 'payment', 'vacancy_description', 'company' ], 'required'], 
+              [['email', 'category_id', 'city_id', 'employment_id', 'education_id', 'profession_id', 'practice', 'payment', 'vacancy_description', 'company' ], 'required'], 
+              ['email', 'email'],
         ];
     }
-    
-    /**
+       /**
      * @param User $user
      */
     public function __construct(User $user)
     {
         $this->user = $user;
 //        $this->on(self::EVENT_POST_CREATED, [Yii::$app->feedService, 'addToFeeds']);
-    }
-    
+    } 
  
     /**
      * @return boolean
@@ -77,6 +77,7 @@ class VacancyForm extends Model
             $vacancy->practice = $this->practice;
             $vacancy->profession_id = $this->profession_id;
             $vacancy->category_id = $this->category_id;
+            $vacancy->email = $this->email;
             $vacancy->save();  
             return true;
           }
