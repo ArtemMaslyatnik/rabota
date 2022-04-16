@@ -42,6 +42,7 @@ AppAsset::register($this);
         $menuItems[] = ['label' => 'Login', 'url' => ['/user/default/login']];
     } else {
         $menuItems[] = ['label' => 'Create vacancy', 'url' => ['/vacancy/default/create']];
+        $menuItems[] = ['label' => 'Create vacancy', 'url' => ['/vacancy/default/create']];
         $menuItems[] = '<li>'
             . Html::beginForm(['/user/default/logout'], 'post', ['class' => 'form-inline'])
             . Html::submitButton(
