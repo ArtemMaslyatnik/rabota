@@ -61,9 +61,7 @@ class SiteController extends Controller
      */
     public function actionVacancyByCity()
     {
-
-        
-        $arrayCity = City::find()->orderBy('name ASC')->asArray()->all();
+       $arrayCity = City::find()->orderBy('name ASC')->asArray()->all();
         $countRecords = City::find()->count();
         //dividing array in to two array
         $col1 = array_slice($arrayCity, 0, $countRecords/2 + 0.5);

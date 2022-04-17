@@ -39,7 +39,7 @@ class VacancySearch extends Vacancy
      *
      * @return ActiveDataProvider
      */
-    public function search($params, $category = null, $city = null)
+    public function search($params, $category = null, $city = null, $user = null)
     {
         $query = Vacancy::find()->orderBy([
             'vacancy_created_at' => SORT_DESC,
@@ -62,7 +62,7 @@ class VacancySearch extends Vacancy
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'user_id' => $this->user_id,
+            //'user_id' => $this->user_id,
             'profession_id' => $this->profession_id,
             'city_id' => $this->city_id,
             'employment_id' => $this->employment_id,
@@ -85,6 +85,13 @@ class VacancySearch extends Vacancy
                 $query->andFilterWhere([
                        'city_id' => $city,
                 ]);
+            }
+            if ($user) {
+                // grid filtering conditions
+                $query->andFilterWhere([
+                       'user_id' => $user,
+                ]);
+        
             }
 
 

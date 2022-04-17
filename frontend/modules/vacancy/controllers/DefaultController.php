@@ -192,5 +192,17 @@ class DefaultController extends Controller
         ]);
     }
     
+    public function actionListOfVacancies()
+    {
+        $id = Yii::$app->user->id;
+        $searchModel = new VacancySearch();
+        $dataProvider = $searchModel->search($this->request->queryParams, null, null, $id);
+
+        return $this->render('lstOfVacancies', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+    
 
 }
