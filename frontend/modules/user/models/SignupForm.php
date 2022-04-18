@@ -14,7 +14,9 @@ class SignupForm extends Model
     public $username;
     public $email;
     public $password;
-
+    //Lykov++
+    public $employer;
+    //Lykov--
 
     /**
      * {@inheritdoc}
@@ -35,6 +37,8 @@ class SignupForm extends Model
 
             ['password', 'required'],
             ['password', 'string', 'min' => Yii::$app->params['user.passwordMinLength']],
+            
+            ['employer', 'required'],
         ];
     }
 
@@ -52,6 +56,7 @@ class SignupForm extends Model
         $user = new User();
         $user->username = $this->username;
         $user->email = $this->email;
+        $user->employer = (int)($this->employer);
         $user->setPassword($this->password);
         $user->generateAuthKey();
         $user->generateEmailVerificationToken();

@@ -34,16 +34,15 @@ AppAsset::register($this);
             'class' => 'navbar navbar-expand-md navbar-dark bg-dark fixed-top',
         ],
     ]);
-    $menuItems = [
-        ['label' => 'Vacancies', 'url' => ['/vacancy/default']],
-    ];
     if (Yii::$app->user->isGuest) {
+        $menuItems = [['label' => 'Vacancies', 'url' => ['/vacancy/default']],];
         $menuItems[] = ['label' => 'Signup', 'url' => ['/user/default/signup']];
         $menuItems[] = ['label' => 'Login', 'url' => ['/user/default/login']];
     } else {
-        $menuItems[] = ['label' => 'Create vacancy', 'url' => ['/vacancy/default/create']];
-        $menuItems[] = ['label' => 'List of vacancies', 'url' => ['/vacancy/default/list-of-vacancies']];
-        
+        if(\frontend\models\User::isEmployer(Yii::$app->user->id)) {
+            $menuItems[] = ['label' => 'Create vacancy', 'url' => ['/vacancy/default/create']]; 
+            $menuItems[] = ['label' => 'List of vacancies', 'url' => ['/vacancy/default/list-of-vacancies']];
+        } 
         $menuItems[] = '<li>'
             . Html::beginForm(['/user/default/logout'], 'post', ['class' => 'form-inline'])
             . Html::submitButton(
