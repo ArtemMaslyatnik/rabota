@@ -24,6 +24,9 @@ return [
         'respond' => [
             'class' => 'frontend\modules\respond\Module',
         ],
+        'resume' => [
+            'class' => 'frontend\modules\resume\Module',
+        ],
     ],
     'components' => [
         'request' => [
@@ -57,7 +60,12 @@ return [
             'rules' => [
             ],
         ],
-        
+        'formatter' => [
+            'dateFormat' => 'dd.MM.yyyy',
+            //'decimalSeparator' => ',',
+            //'thousandSeparator' => ' ',
+            //'currencyCode' => 'EUR',
+        ],
     ],
     'params' => $params,
 ];

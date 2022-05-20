@@ -35,13 +35,15 @@ AppAsset::register($this);
         ],
     ]);
     if (Yii::$app->user->isGuest) {
-        $menuItems = [['label' => 'Vacancies', 'url' => ['/vacancy/default']],];
-        $menuItems[] = ['label' => 'Signup', 'url' => ['/user/default/signup']];
-        $menuItems[] = ['label' => 'Login', 'url' => ['/user/default/login']];
+        $menuItems[] = ['label' => 'Vacancies','url' => ['/vacancy/default']];
+        $menuItems[] = ['label' => 'Resume',   'url' => ['/resume/default']];
+        $menuItems[] = ['label' => 'Signup',   'url' => ['/user/default/signup']];
+        $menuItems[] = ['label' => 'Login',    'url' => ['/user/default/login']];
     } else {
         if(\frontend\models\User::isEmployer(Yii::$app->user->id)) {
             $menuItems[] = ['label' => 'Create vacancy', 'url' => ['/vacancy/default/create']]; 
-            $menuItems[] = ['label' => 'List of vacancies', 'url' => ['/vacancy/default/list-of-vacancies']];
+            $menuItems[] = ['label' => 'Create resume', 'url' => ['/resume/default/create']];
+            //$menuItems[] = ['label' => 'List of resume', 'url' => ['/resume/default/list-of-vacancies']];
         } 
         $menuItems[] = '<li>'
             . Html::beginForm(['/user/default/logout'], 'post', ['class' => 'form-inline'])

@@ -21,7 +21,8 @@
         "yiisoft/yii2-jui": "^2.0",
         "conquer/select2": "*",
         "kartik-v/yii2-widget-select2": "@dev",
-        "kartik-v/yii2-krajee-base": "dev-master"
+        "kartik-v/yii2-krajee-base": "dev-master",
+        "la-haute-societe/yii2-save-relations-behavior": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",
