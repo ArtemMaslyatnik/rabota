@@ -40,11 +40,12 @@ AppAsset::register($this);
         $menuItems[] = ['label' => 'Signup',   'url' => ['/user/default/signup']];
         $menuItems[] = ['label' => 'Login',    'url' => ['/user/default/login']];
     } else {
-        if(\frontend\models\User::isEmployer(Yii::$app->user->id)) {
-            $menuItems[] = ['label' => 'Create vacancy', 'url' => ['/vacancy/default/create']]; 
+        if(\Yii::$app->user->can('applicant')) {
             $menuItems[] = ['label' => 'Create resume', 'url' => ['/resume/default/create']];
-            //$menuItems[] = ['label' => 'List of resume', 'url' => ['/resume/default/list-of-vacancies']];
-        } 
+        } elseif (\Yii::$app->user->can('employer')) {
+            $menuItems[] = ['label' => 'Create vacancy', 'url' => ['/vacancy/default/create']]; 
+        }
+        
         $menuItems[] = '<li>'
             . Html::beginForm(['/user/default/logout'], 'post', ['class' => 'form-inline'])
             . Html::submitButton(

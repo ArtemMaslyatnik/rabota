@@ -29,7 +29,14 @@ class User extends ActiveRecord implements IdentityInterface
     const STATUS_DELETED = 0;
     const STATUS_INACTIVE = 9;
     const STATUS_ACTIVE = 10;
-
+    
+    //++Lykov
+    const ROLE_ADMIN = 'admin';
+    const ROLE_APPLICANT = 'applicant';
+    const STATUS_EMPLOYER = 'employer';
+    
+    
+    //--Lykov
 
     /**
      * {@inheritdoc}
@@ -59,6 +66,28 @@ class User extends ActiveRecord implements IdentityInterface
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INACTIVE, self::STATUS_DELETED]],
         ];
     }
+    //++RBAC
+    public function __construct() {
+        
+        $this->on(self::EVENT_AFTER_INSERT, [$this, 'saveRoles']);
+        
+    }
+    
+    
+    public function saveRoles() {
+
+        if ($this->employer)  {
+            $auth = Yii::$app->authManager;
+            $employerRole = $auth->getRole('employer');
+            $auth->assign($employerRole, $this->id);
+        }   
+        else {
+            $auth = Yii::$app->authManager;
+            $applicantRole = $auth->getRole('applicant');
+            $auth->assign($applicantRole, $this->id);
+        }
+    }
+    //--
 
     /**
      * {@inheritdoc}

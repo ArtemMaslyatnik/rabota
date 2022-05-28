@@ -29,7 +29,6 @@ $this->title = 'Vacancies';
                 'itemOptions' => ['class' => 'item'],
                 'itemView' => function ($model, $key, $index, $widget) {
                     
-                    //return Html::a(Html::encode($model->id), ['view', 'id' => $model->id]);
                     return $this->render('_vacancy',['model' => $model]);
                 },
             ])

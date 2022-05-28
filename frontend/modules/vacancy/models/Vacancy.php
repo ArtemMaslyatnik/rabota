@@ -34,6 +34,17 @@ class Vacancy extends \yii\db\ActiveRecord
     {
         return 'vacancy';
     }
+    
+        public function rules()
+    {
+         return [
+              [['category_id', 'city_id', 'employment_id', 'education_id', 'profession_id', 'practice', 'payment' ], 'integer'],
+              [['vacancy_description'], 'string'],
+              [['company'], 'string', 'max' => 255],
+              [['email', 'category_id', 'city_id', 'employment_id', 'education_id', 'profession_id', 'practice', 'payment', 'vacancy_description', 'company' ], 'required'], 
+              ['email', 'email'],
+        ];
+    }
 
 
 

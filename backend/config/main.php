@@ -12,17 +12,19 @@ return [
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
     'modules' => [
+       'vacancy' => [
+            'class' => 'backend\modules\vacancy\Module',
+        ],
         'user' => [
             'class' => 'backend\modules\user\Module',
         ],
-        
     ],
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-backend',
         ],
         'user' => [
-            'identityClass' => 'common\models\User',
+            'identityClass' => 'backend\models\User',
             'enableAutoLogin' => true,
             'identityCookie' => ['name' => '_identity-backend', 'httpOnly' => true],
         ],
@@ -42,14 +44,26 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        /*
+        
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
             ],
         ],
-        */
+        
     ],
+    //++
+    'as access' => [
+        'class' => 'yii\filters\AccessControl',
+        'except' => ['site/login', 'site/error', 'site/logout', 'site/captcha'],
+        'rules' => [
+            [
+                'allow' => true,
+                'roles' => ['admin'],
+            ],
+        ],
+    ],
+    //--
     'params' => $params,
 ];

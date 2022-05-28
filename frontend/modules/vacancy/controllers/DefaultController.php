@@ -9,8 +9,8 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use frontend\modules\vacancy\models\forms\VacancyForm;
-
-
+use yii\filters\AccessControl;
+use yii\web\ForbiddenHttpException;
 
 /**
  * DefaultController implements the CRUD actions for Vacancy model.
@@ -20,18 +20,31 @@ class DefaultController extends Controller
     /**
      * @inheritDoc
      */
-    public function behaviors()
-    {
+    public function behaviors() {
         return array_merge(
-            parent::behaviors(),
-            [
-                'verbs' => [
-                    'class' => VerbFilter::className(),
-                    'actions' => [
-                        'delete' => ['POST'],
+                parent::behaviors(),
+                [
+                    'verbs' => [
+                        'class' => VerbFilter::className(),
+                        'actions' => [
+                            'delete' => ['POST'],
+                        ],
+                    ],
+                    'access' => [
+                        'class' => AccessControl::class,
+                        'rules' => [
+                            [
+                                'allow' => true,
+                                'actions' => ['index', 'view'],
+                            ],
+                            [
+                                'allow' => true,
+                                'actions' => ['create', 'update', 'delete'],
+                                'roles' => ['admin', 'employer'],
+                            ],
+                        ],
                     ],
                 ],
-            ]
         );
     }
 
@@ -79,10 +92,6 @@ class DefaultController extends Controller
  
     public function actionCreate()
     {
-        if (Yii::$app->user->isGuest) {
-            return $this->redirect(['/user/default/login']);
-        }
-        
 
         $model = new VacancyForm(Yii::$app->user->identity);
         
@@ -110,6 +119,10 @@ class DefaultController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        
+        if (!\Yii::$app->user->can('updateVacancy', ['model' => $model])) {
+            throw new ForbiddenHttpException('Access denied');
+        }
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
