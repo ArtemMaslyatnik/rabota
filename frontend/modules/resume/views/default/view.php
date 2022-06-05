@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
-
+use yii\widgets\ListView;
 use yii\bootstrap4\Tabs;
 
 /* @var $this yii\web\View */
@@ -19,60 +19,64 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
+    <?php
+    echo Tabs::widget([
+        'items' => [
+            [
+                'label' => 'Personal data',
+                'content' => DetailView::widget([
+                    'model' => $model,
+                    'attributes' => [
+                        'surname',
+                        'name',
+                        'patronymic',
+                        'phone',
+                        'email:email',
+                        [
+                            'label' => 'Aga',
+                            'value' => $age,
+                        ],
+                        [
+                            'label' => 'City',
+                            'value' => $model->city->name,
+                        ],
+                        [
+                            'label' => 'Profession',
+                            'value' => $model->profession->name,
+                        ],
+                        [
+                            'label' => 'Employment',
+                            'value' => $model->employment->name,
+                        ],
+                        'salary',
+                        'address',
+                        'updated_at:date',
+                    ],]),
+                'active' => true
+            ],
+            [
+                'label' => 'Education',
+                'content' => $this->render('education/resumeEducationView', ['dataproviderEducation' => $dataproviderEducation, 'view' => '_list_item_Education_view']),
+            ],
+            [
+                'label' => 'Experience',
+                'content' => $this->render('experience/resumeExperienceView', ['dataproviderExperience' => $dataproviderExperience, 'view' => '_list_item_Experience_view']),
+            ],
+        ]
+    ]);
+    ?>
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+        <?=
+        Html::a('Delete', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
                 'method' => 'post',
             ],
-        ]) ?>
+        ])
+        ?>
     </p>
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'surname',
-            'name',
-            'patronymic',
-            'phone',
-            'email:email',
-            'date_of_birth:date',
-            [
-                'label' => 'City',
-                'value' => $model->city->name,
-            ],
-            [
-                'label' => 'Profession',
-                'value' => $model->profession->name,
-            ],
-            [
-                'label' => 'Employment',
-                'value' => $model->employment->name,
-            ],
-            'salary',
-            'address',
-            'date_added:date',
-        ],
-    ]);
-    ?>
-    
-         <?php 
-    echo  Tabs::widget([
-           'items' => [
-               [
-                   'label'     =>  'Education',
-                   'content'   =>  $this->render('education/resumeEducationView', ['dataproviderEducation' => $dataproviderEducation,]),
-                   'active'    =>  true
-                ],
-               [
-                   'label'     =>  'Experience',
-                   'content'   =>  $this->render('experience/resumeExperienceView', ['dataproviderExperience' => $dataproviderExperience,]),
-                ],
-                ]
-        ]);
-    ?>
 
-    
 </div>

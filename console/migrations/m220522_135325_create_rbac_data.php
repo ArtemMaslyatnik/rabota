@@ -44,7 +44,8 @@ class m220522_135325_create_rbac_data extends Migration
         $auth->add($updateResumePermission);
         
         $updateOwnResumePermission = $auth->createPermission('updateOwnResume');
-        $updateOwnResumePermission->description = 'Update resume';
+        $updateOwnResumePermission->description = 'Update own resume';
+        $updateOwnResumePermission->ruleName = $employerRule->name;
         $auth->add($updateOwnResumePermission);
         
         
@@ -54,7 +55,6 @@ class m220522_135325_create_rbac_data extends Migration
         
         $updateVacancyPermission = $auth->createPermission('updateVacancy');
         $updateVacancyPermission->description = 'Update vacancy';
-        $updateVacancyPermission->ruleName = $employerRule->name;
         $auth->add($updateVacancyPermission);
 
         $updateOwnVacancyPermission = $auth->createPermission('updateOwnVacancy');

@@ -33,9 +33,7 @@ class VacancyForm extends Model
     public $vacancy_description;
     public $payment;
     public $email;
-    
- 
-    private $user;
+    private $user_id;
 
     /**
      * @inheritdoc
@@ -55,7 +53,7 @@ class VacancyForm extends Model
      */
     public function __construct(User $user)
     {
-        $this->user = $user;
+        $this->user_id = $user->getId();
 //        $this->on(self::EVENT_POST_CREATED, [Yii::$app->feedService, 'addToFeeds']);
     } 
  
@@ -68,7 +66,7 @@ class VacancyForm extends Model
             $vacancy = new Vacancy();
             $vacancy->vacancy_description = $this->vacancy_description;
             $vacancy->vacancy_created_at = time();
-            $vacancy->user_id = $this->user->getId();
+            $vacancy->user_id = $this->user_id;
             $vacancy->city_id = $this->city_id;
             $vacancy->company = $this->company;
             $vacancy->payment = $this->payment;

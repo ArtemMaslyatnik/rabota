@@ -14,15 +14,15 @@ use frontend\models\Category;
  * This is the model class for table "vacancy".
  *
  * @property int $id
- * @property int|null $user_id
- * @property string|null $profession_id
- * @property string|null $company
- * @property int|null $city_id
- * @property int|null $employment_id
- * @property int|null $education_id
+ * @property int $user_id
+ * @property string $profession_id
+ * @property string $company
+ * @property int $city_id
+ * @property int $employment_id
+ * @property int $education_id
  * @property int|null $practice
  * @property int|null $payment
- * @property string|null $vacancy_description
+ * @property string $vacancy_description
  * @property int $vacancy_created_at
  */
 class Vacancy extends \yii\db\ActiveRecord
@@ -41,7 +41,7 @@ class Vacancy extends \yii\db\ActiveRecord
               [['category_id', 'city_id', 'employment_id', 'education_id', 'profession_id', 'practice', 'payment' ], 'integer'],
               [['vacancy_description'], 'string'],
               [['company'], 'string', 'max' => 255],
-              [['email', 'category_id', 'city_id', 'employment_id', 'education_id', 'profession_id', 'practice', 'payment', 'vacancy_description', 'company' ], 'required'], 
+              [['email', 'category_id', 'city_id', 'employment_id', 'education_id', 'profession_id',  'vacancy_description', 'company' ], 'required'], 
               ['email', 'email'],
         ];
     }

@@ -34,9 +34,7 @@ use yii\behaviors\TimestampBehavior;
  */
 class Resume extends \yii\db\ActiveRecord
 {
-    
-    // use SaveRelationsTrait; // Optional
-    
+        
     /**
      *
     */ 
@@ -48,26 +46,16 @@ class Resume extends \yii\db\ActiveRecord
     }
 
     /**
-     * transactions SaveRelationsBehavior
-     * 
-     
-    public function transactions()
-    {
-        return [
-            self::SCENARIO_DEFAULT => self::OP_ALL,
-        ];
-    }    
-    */
-    
-    /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['city_id', 'profession_id', 'employment_id', 'salary'], 'integer'],
+            [['user_id','city_id', 'profession_id', 'employment_id', 'salary'], 'integer'],
             [[ 'surname', 'name', 'patronymic', 'phone', 'email', 'address'], 'string', 'max' => 255],
             ['date_of_birth', 'date', 'timestampAttribute' => 'date_of_birth'],
+            [['user_id','city_id', 'profession_id', 'employment_id', 'surname', 'name', 'phone', 'email', 'date_of_birth'], 'required'],
+            [['email'], 'email'],
         ];
     }
     /**
@@ -99,6 +87,7 @@ class Resume extends \yii\db\ActiveRecord
             'address' => 'Address',
             'date_added' => 'Date Added',
             'date_modified' => 'Date Modified',
+            'user_id' => 'User ID',
         ];
     }
 
@@ -156,5 +145,4 @@ class Resume extends \yii\db\ActiveRecord
         $result = Yii::$app->db->createCommand($sql)->queryAll();
         return ArrayHelper::map($result, 'id', 'name');
     }
-    
 }

@@ -9,35 +9,16 @@ use yii\helpers\ArrayHelper;
 use frontend\models\Profession;
 use frontend\models\Category;
 use frontend\modules\resume\models\Resume;
-use frontend\modules\resume\models\ResumeEducation;
-use frontend\modules\resume\models\ResumeExperience;
+use frontend\models\User;
 
-
-class VacancyForm extends Model
+class ResumeForm extends Model
 {
 
-    //const MAX_DESCRIPTION_LENGHT = 2000;
-    //const EVENT_POST_CREATED = 'post_created';
-
-   // public $picture;
-   // public $description;
-    
     public $address;
-    public $activity_company;
     public $date_of_birth;
-    public $date_modified;
-    public $date_added;
-    public $date_from;
-    public $date_by;
-    public $date_exp_by;
-    public $date_exp_from;
     public $city_id;
-    public $company;
-    public $faculty_specialty;
     public $email;
     public $employment_id;
-    public $educational_institution;
-    public $education_details;
     public $name;
     public $phone;
     public $patronymic;
@@ -46,43 +27,29 @@ class VacancyForm extends Model
     public $responsibilities;
     public $salary;
     public $surname;
+    private $user;
     
-/**
+    /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['date_exp_by', 'date_exp_from', 'resume_id',  'date_from', 'date_by', 'date_of_birth', 'city_id', 'profession_id', 'employment_id', 'salary', 'date_added', 'date_modified'], 'integer'],
-            [['company', 'activity_company', 'educational_institution', 'faculty_specialty', 'education_details', 'surname', 'name', 'patronymic', 'phone', 'email', 'address'], 'string', 'max' => 255],
-            [['responsibilities'], 'string'],
+            [['city_id', 'profession_id', 'employment_id', 'salary'], 'integer'],
+            [['surname', 'name', 'patronymic', 'phone', 'email', 'address'], 'string', 'max' => 255],
+            ['date_of_birth', 'date', 'timestampAttribute' => 'date_of_birth'],
+            [['city_id', 'profession_id', 'employment_id', 'surname', 'name', 'phone', 'email'], 'required'],
+            [['email'], 'email'],
         ];
     }
 
 
-
-    /**
-     * @inheritdoc
-     
-    public function rules()
-    {
-         return [
-              [['category_id', 'city_id', 'employment_id', 'education_id', 'profession_id', 'practice', 'payment' ], 'integer'],
-              [['vacancy_description'], 'string'],
-              [['company'], 'string', 'max' => 255],
-              [['email', 'category_id', 'city_id', 'employment_id', 'education_id', 'profession_id', 'practice', 'payment', 'vacancy_description', 'company' ], 'required'], 
-              ['email', 'email'],
-        ];
-    }
-     */
-    /**
+/**
      * @param User $user
      */
-   // public function __construct(User $user)
-    //{
- //       $this->user = $user;
-//        $this->on(self::EVENT_POST_CREATED, [Yii::$app->feedService, 'addToFeeds']);
-    //} 
+    public function __construct(User $user) {
+        $this->user = $user;
+  } 
  
     /**
      * @return boolean
@@ -91,18 +58,18 @@ class VacancyForm extends Model
     {
         if ($this->validate()) {      
             $resume = new Resume();
-            $resume->address = $this->vacancy_description;
-            $resume->city_id = time();
-            $resume->date_added = $this->user->getId();
-            $resume->date_modified = $this->city_id;
-            $resume->date_of_birth = $this->company;
-            $resume->email = $this->payment;
-            $resume->employment_id = $this->education_id;
-            $resume->name = $this->employment_id;
-            $resume->patronymic = $this->practice;
+            $resume->address = $this->address;
+            $resume->city_id = $this->city_id;
+            $resume->date_of_birth = $this->date_of_birth;
+            $resume->email = $this->email;
+            $resume->employment_id = $this->employment_id;
+            $resume->surname = $this->surname;
+            $resume->name = $this->name;
+            $resume->patronymic = $this->patronymic;
             $resume->profession_id = $this->profession_id;
-            $resume->phone = $this->category_id;
-            $resume->salary = $this->email;
+            $resume->phone = $this->phone;
+            $resume->salary = $this->salary;
+            $resume->user_id = $this->user->getId();
 
             $resume->save();  
             return true;
@@ -111,6 +78,8 @@ class VacancyForm extends Model
         return false;
 
     }
+    
+   
     
     public function getCityList() {
         $sql = "SELECT * FROM city";

@@ -17,19 +17,19 @@ $this->params['breadcrumbs'][] = 'Update';
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <?= $this->render('_form', [
-        'model' => $model,
-    ]) ?>
-    
-    
-
-     <?php 
+    <?php 
     echo  Tabs::widget([
            'items' => [
+                [
+                   'label'     =>  'Personal data',
+                   'content'   =>  $this->render('_form', ['model' => $model]),
+                   'active'    =>  true
+                ],
+          
                [
                    'label'     =>  'Education',
                    'content'   =>  $this->render('education/resumeEducation', ['model' => $model, 'modelEducation' => $modelEducation, 'dataproviderEducation' => $dataproviderEducation,]),
-                   'active'    =>  true
+                   'active'    =>  false
                 ],
                [
                    'label'     =>  'Experience',

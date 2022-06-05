@@ -21,6 +21,7 @@ class m220428_080018_alter_resume_table extends Migration
      */
     public function down() 
     {
-        $this->dropColumn('{{%resume}}', 'resume_id');
+        $this->dropColumn('{{%resume}}', 'created_at', $this->integer(11));
+        $this->dropColumn('{{%resume}}', 'updated_at', $this->integer(11));
     }
 }

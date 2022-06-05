@@ -3,21 +3,23 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\select2\Select2;
+use yii\web\JqueryAsset;
 ?>
 
-<div id ="product_type">    
+<div>    
 <?=
 $this->render('resumeExperienceView', [
     'dataproviderExperience' => $dataproviderExperience,
+    'view' => '_list_item_Experience',
 ])
 ?>
 </div>
 
 
-    <?php $form = ActiveForm::begin(['id' => 'form-add-experience']) ?>
+    <?php $form = ActiveForm::begin(['options' => ['id' => 'form-add-experience', 'class' => 'form-add-experience']]) ?>
 
 <?= Html::activeHiddenInput($modelExperience, 'resume_id', $options = ['value' => $model->id]) ?>
-
+<?= Html::activeHiddenInput($modelExperience, 'id', $options = ['value' => $modelExperience->id]) ?>
 
 <?php
     echo $form->field($modelExperience, 'city_id')->widget(Select2::classname(), [
@@ -100,52 +102,19 @@ $this->render('resumeExperienceView', [
 
 
 <div class="form-group">
-    <?= Html::button('Add education', ['id' => 'button-add-experience', 'name' => 'add-experience', 'class' => 'btn btn-success']) ?>
+    <?= Html::button('Add', ['id' => 'button-add-experience', 'name' => 'add-experience', 'class' => 'btn btn-success']) ?>
+    <?= Html::button('Save', ['id' => 'button-update-experience', 'name' => 'update-experience', 'class' => 'btn btn-primary', 'value' => $model->id]) ?>
+    <?= Html::button('Cancel', ['id' => 'button-cancel-experience', 'name' => 'cancel-experience', 'class' => 'btn btn-light']) ?>
 </div>
 
 
 <?php ActiveForm::end() ?>
 
+<div>
+        <?= Html::button('+', ['id' => 'button-add-experience-form', 'name' => 'add-experience-form', 'class' => 'btn btn-primary']) ?>
+</div>
 
 
-
-<?php
-$js = <<<JS
-     
-    $('#button-add-experience').on('click', function(event){
-        event.preventDefault();
-        var data = $('#form-add-experience').serialize();
-         $.ajax({
-            url: '/rabota/frontend/web/resume/default/add-experience',
-            type: 'POST',
-            data: data,
-            dataType: 'json',
-            beforeSend: function() {
-			$('#button-add-experience').button('loading');
-		},
-            complete: function() {
-			$('#button-add-experience').button('reset');
-		},
-            success: function(json){
-                console.log(json['arrExperience']);
-                $("#item-resume-experience").append(        
-                    '<article class="item" data-key="' + json['arrExperience'].resume_id + '"> <div class="row"> ' 
-                    + '<div class="col-lg-4"> Company: ' + json['arrExperience'].company 
-                    + '<br> Activity company: '  +  json['arrExperience'].activity_company  
-                    + '<br>  Profession: ' + json['arrExperience'].profession + '</div>' 
-                    + '<div class="col-lg-4">  City: ' + json['arrExperience'].city  
-                    + '<br> Education details: ' + json['arrExperience'].education_details + '</div>'
-                    + '<div class="col-lg-4">  Date from: ' + json['arrExperience'].date_from  
-                    + '<br> Date by: ' + json['arrExperience'].date_by + '</div></div></article><br><hr>'
-                )
-            },
-            error: function(xhr, ajaxOptions, thrownError) {
-			alert(thrownError  + xhr.statusText +  + xhr.responseText);
-            },
-            timeout: 100000
-        });
-    });
-JS;
-
-$this->registerJs($js);
-?>
+<?php $this->registerJsFile('@web/js/resume.js', [
+    'depends' => JqueryAsset::className(),
+]);

@@ -11,9 +11,9 @@ use yii\widgets\ListView;
 
     <?= ListView::widget([
             'dataProvider' => $dataproviderEducation,
-            'itemOptions' => ['class' => 'item', 'id' => 'item-resume-education'],
+            'itemOptions' => ['class' => 'item'],
             'summary' =>false,
-            'itemView' => '_list_item_Education',            
+            'itemView' => $view,            
         ]); 
     ?>
 </div>

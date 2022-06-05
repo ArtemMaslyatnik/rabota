@@ -3,19 +3,22 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\select2\Select2;
+use yii\web\JqueryAsset;
 ?>
 
-<div id ="product_type">    
+<div>    
 <?=
 $this->render('resumeEducationView', [
     'dataproviderEducation' => $dataproviderEducation,
+    'view' => '_list_item_Education'
 ])
 ?>
 </div>
 
-    <?php $form = ActiveForm::begin(['id' => 'form-add-education']) ?>
+<?php $form = ActiveForm::begin(['options' => ['id' => 'form-add-education', 'class' => 'form-add-education']]) ?>
 
 <?= Html::activeHiddenInput($modelEducation, 'resume_id', $options = ['value' => $model->id]) ?>
+<?= Html::activeHiddenInput($modelEducation, 'id', $options = ['value' => $modelEducation->id]) ?>
 
 
 <?php
@@ -88,94 +91,17 @@ echo $form->field($modelEducation, 'city_id')->widget(Select2::classname(), [
 
 
 <div class="form-group">
-<?= Html::button('Add education', ['id' => 'button-add-education', 'name' => 'add-education', 'class' => 'btn btn-success']) ?>
-</div>
-
+    <?= Html::button('Add', ['id' => 'button-add-education', 'name' => 'add-education', 'class' => 'btn btn-success']) ?>
+    <?= Html::button('Save', ['id' => 'button-update-education', 'name' => 'update-education', 'class' => 'btn btn-primary', 'value' => $model->id]) ?>
+    <?= Html::button('Cancel', ['id' => 'button-cancel-education', 'name' => 'cancel-education', 'class' => 'btn btn-light']) ?>
+ </div>
 
 <?php ActiveForm::end() ?>
 
+<div>
+        <?= Html::button('+', ['id' => 'button-add-education-form', 'name' => 'add-education-form', 'class' => 'btn btn-primary']) ?>
+</div>
 
-
-
-<?php
-$js = <<<JS
-     
-    $('#button-add-education').on('click', function(event){
-        event.preventDefault();
-        var data = $('#form-add-education').serialize();
-         $.ajax({
-            url: '/rabota/frontend/web/resume/default/add-education',
-            type: 'POST',
-            data: data,
-            dataType: 'json',
-            beforeSend: function() {
-			$('#button-add-education').button('loading');
-		},
-            complete: function() {
-			$('#button-add-education').button('reset');
-		},
-            success: function(json){
-                console.log(json['arrEducation']);
-                $("#item-resume-education").append(        
-                    '<article class="item" data-key="' + json['arrEducation'].resume_id + '"> <div class="row"> ' +
-                    '<div class="col-lg-4"> Educational institution: ' + json['arrEducation'].educational_institution+ 
-                    '<br> Faculty specialty: '  +  json['arrEducation'].faculty_specialty  + '</div>' 
-                    + '<div class="col-lg-4">  City: ' + json['arrEducation'].city  
-                    + '<br> Education details: ' + json['arrEducation'].education_details + '</div>'
-                    + '<div class="col-lg-4">  Date from: ' + json['arrEducation'].date_from  
-                    + '<br> Date by: ' + json['arrEducation'].date_by + '</div></div></article><br><hr>'
-                )
-            },
-            error: function(xhr, ajaxOptions, thrownError) {
-			alert(thrownError  + xhr.statusText +  + xhr.responseText);
-            },
-            timeout: 100000
-        });
-    });
-JS;
-
-
-$this->registerJs($js);
-?>
-
-<?php
-$js1 = <<<JS
-     
-   $('#product_type').delegate('.btn-danger', 'click', function() {
-
-        var node = this;
-        var data = 'key=' + encodeURIComponent(this.value);
-         $.ajax({
-            url: '/rabota/frontend/web/resume/default/delete-education',
-            type: 'POST',
-            data: data,
-            dataType: 'json',
-            beforeSend: function() {
-			$(node).button('loading');
-		},
-            complete: function() {
-			$(node).button('reset');
-		},
-            success: function(json){
-                console.log(json['arrEducation']);
-                $("#item-resume-education").append(        
-                    '<article class="item" data-key="' + json['arrEducation'].resume_id + '"> <div class="row"> ' +
-                    '<div class="col-lg-4"> Educational institution: ' + json['arrEducation'].educational_institution+ 
-                    '<br> Faculty specialty: '  +  json['arrEducation'].faculty_specialty  + '</div>' 
-                    + '<div class="col-lg-4">  City: ' + json['arrEducation'].city  
-                    + '<br> Education details: ' + json['arrEducation'].education_details + '</div>'
-                    + '<div class="col-lg-4">  Date from: ' + json['arrEducation'].date_from  
-                    + '<br> Date by: ' + json['arrEducation'].date_by + '</div></div></article><br><hr>'
-                )
-            },
-            error: function(xhr, ajaxOptions, thrownError) {
-			alert(thrownError  + xhr.statusText +  + xhr.responseText);
-            },
-            timeout: 100000
-        });
-    });
-JS;
-
-
-$this->registerJs($js1);
-?>
+<?php $this->registerJsFile('@web/js/resume.js', [
+    'depends' => JqueryAsset::className(),
+]);

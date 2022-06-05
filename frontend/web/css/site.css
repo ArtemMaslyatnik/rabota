@@ -95,3 +95,12 @@ a.desc:after {
     border-style: solid;
     padding: 20px;
 }
+
+/*Lykov*/
+#form-add-education {
+    display: none;
+}
+
+#form-add-experience {
+    display: none;
+}
